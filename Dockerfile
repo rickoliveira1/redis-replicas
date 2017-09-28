@@ -20,8 +20,7 @@ RUN apt-get install -y supervisor && mkdir -p /var/log/supervisor
 
 COPY  ["supervisord.conf", "/etc/supervisor/conf.d/"]
 
-RUN chown 1001 /etc/supervisor/conf.d/supervisord.conf
-RUN chown 1001 -R /etc/supervisor/conf.d/
+RUN chown -R 1001 /etc/supervisor/
 RUN chown 1001 -R /usr/bin/supervisord
 RUN chown 1001 /usr/local/bin/docker-entrypoint.sh
 RUN chown 1001 -R /etc/redis-stable
