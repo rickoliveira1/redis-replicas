@@ -6,6 +6,7 @@ RUN apt-get update
 RUN apt-get -y upgrade
 RUN apt-get install make gcc libc6-dev tcl -y
 WORKDIR /etc
+RUN apt-get install wget -y
 RUN wget http://download.redis.io/redis-stable.tar.gz
 RUN tar xvzf redis-stable.tar.gz
 WORKDIR /etc/redis-stable
