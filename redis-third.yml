@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-third
+  labels:
+    app: redis-third
+spec:
+  ports:
+  - port: 6381
+    name: redis-third-master
+  - port: 6380
+    name: redis-third-slave
+  selector:
+    app: redis-third
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: redis-third
+spec:
+  serviceName: redis-third
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: redis-third
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: redis-third
+        image: rickoliveira1/redis-replicas
+        imagePullPolicy: Always
+        env:
+        - name: SLAVEC
+          value: "true"
+        - name: PORT
+          value: 6381
+        - name: PORTSLAVE
+          value: 6380
+        ports:
+        - containerPort: 6381
+          name: redis-third-master
+        - containerPort: 6380
+          name: redis-third-slave

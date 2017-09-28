@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-first
+  labels:
+    app: redis-first
+spec:
+  ports:
+  - port: 6379
+    name: redis-first-master
+  - port: 6381
+    name: redis-first-slave
+  selector:
+    app: redis-first
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: redis-first
+spec:
+  serviceName: redis-first
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis-first
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: redis-first
+        image: rickoliveira1/redis-replicas
+        imagePullPolicy: Always
+        env:
+        - name: SLAVEA
+          value: "true"
+        - name: PORT
+          value: 6379
+        - name: PORTSLAVE
+          value: 6381
+        ports:
+        - containerPort: 6379
+          name: redis-first-master
+        - containerPort: 6381
+          name: redis-first-slave
