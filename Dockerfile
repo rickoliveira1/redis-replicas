@@ -4,11 +4,11 @@ MAINTAINER Ruan Santos (ruansvictor@gmail.com)
 
 RUN apt-get update
 RUN apt-get -y upgrade
-RUN apt install make gcc libc6-dev tcl
-RUN cd /etc
+RUN apt install make gcc libc6-dev tcl -y
+WORKDIR /etc
 RUN wget http://download.redis.io/redis-stable.tar.gz
 RUN tar xvzf redis-stable.tar.gz
-RUN cd redis-stable
+WORKDIR /etc/redis-stable
 RUN make install
 
 RUN chmod 660 /etc/redis-stable/redis.conf
