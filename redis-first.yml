@@ -6,11 +6,15 @@ metadata:
     app: redis-first
 spec:
   ports:
-  - port: 6379
-    name: redis-first-master
-  - port: 6381
-    name: redis-first-slave
-  selector:
+  - name: redis-first-master
+    port: 6379
+    protocol: TCP
+    targetPort: 6379
+  - name: redis-first-slave
+    port: 6381
+    protocol: TCP
+    targetPort: 6381
+  seltector:
     app: redis-first
 ---
 apiVersion: apps/v1beta1

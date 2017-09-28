@@ -6,10 +6,14 @@ metadata:
     app: redis-third
 spec:
   ports:
-  - port: 6381
-    name: redis-third-master
-  - port: 6380
-    name: redis-third-slave
+  - name: redis-third-master
+    port: 6381
+    protocol: TCP
+    targetPort: 6381
+  - name: redis-third-slave
+    port: 6380
+    protocol: TCP
+    targetPort: 6380
   selector:
     app: redis-third
 ---
