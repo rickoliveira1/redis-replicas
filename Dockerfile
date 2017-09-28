@@ -4,11 +4,14 @@ MAINTAINER Ruan Santos (ruansvictor@gmail.com)
 
 RUN apt-get update
 RUN apt-get -y upgrade
-RUN apt install make gcc libc6-dev tcl
-RUN cd /etc
+RUN apt-get install make gcc libc6-dev tcl -y
+WORKDIR /etc
+RUN apt-get install wget -y
 RUN wget http://download.redis.io/redis-stable.tar.gz
 RUN tar xvzf redis-stable.tar.gz
-RUN cd redis-stable
+RUN pwd
+WORKDIR /etc/redis-stable
+RUN pwd
 RUN make install
 RUN apt-get install -y supervisor && mkdir -p /var/log/supervisor
 

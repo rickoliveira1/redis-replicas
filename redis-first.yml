@@ -6,15 +6,11 @@ metadata:
     app: redis-first
 spec:
   ports:
-  - name: redis-first-master
-    port: 6379
-    protocol: TCP
-    targetPort: 6379
-  - name: redis-first-slave
-    port: 6381
-    protocol: TCP
-    targetPort: 6381
-  seltector:
+  - port: 6379
+    name: redisfmaster
+  - port: 6381
+    name: redisfslave
+  selector:
     app: redis-first
 ---
 apiVersion: apps/v1beta1
@@ -38,11 +34,11 @@ spec:
         - name: SLAVEA
           value: "true"
         - name: PORT
-          value: 6379
+          value: "6379"
         - name: PORTSLAVE
-          value: 6381
+          value: "6381"
         ports:
         - containerPort: 6379
-          name: redis-first-master
+          name: redisamaster
         - containerPort: 6381
-          name: redis-first-slave
+          name: redisaslave

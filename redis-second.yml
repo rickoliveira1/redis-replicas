@@ -6,15 +6,10 @@ metadata:
     app: redis-second
 spec:
   ports:
-  - name: redis-second-master
-    port: 6380
-    protocol: TCP
-    targetPort: 6380
-  - name: redis-second-slave
-    port: 6379
-    protocol: TCP
-    targetPort: 6379
-
+  - port: 6380
+    name: redisbmaster
+  - port: 6379
+    name: redisbslave
   selector:
     app: redis-second
 ---
@@ -39,9 +34,9 @@ spec:
         - name: SLAVEB
           value: "true"
         - name: PORT
-          value: 6380
+          value: "6380"
         - name: PORTSLAVE
-          value: 6379
+          value: "6379"
         ports:
         - containerPort: 6380
           name: redis-second-master
