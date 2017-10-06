@@ -4,11 +4,11 @@ MAINTAINER Ruan Santos (ruansvictor@gmail.com)
 
 RUN apt-get update && \
 apt-get -y upgrade && \
-apt-get install make gcc libc6-dev tcl rubygems -y 
+apt-get install make gcc libc6-dev tcl rubygems wget -y 
 
-WORKDIR /etc
-RUN apt-get install wget -y && \
-wget http://download.redis.io/redis-stable.tar.gz && \
+WORKDIR /etc/
+
+RUN wget http://download.redis.io/redis-stable.tar.gz && \
 tar xvzf redis-stable.tar.gz && \
 
 WORKDIR /etc/redis-stable
